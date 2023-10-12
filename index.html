@@ -20,22 +20,12 @@
             border-radius: 50%;
             position: absolute;
         }
-
-        #data-output {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
-        }
     </style>
 
 </head>
 <body>
+    
     <div id="circle"></div>
-    <div id="data-output"></div>
-
     <script>
         if (typeof DeviceMotionEvent.requestPermission === 'function') {
             DeviceMotionEvent.requestPermission()
@@ -57,22 +47,16 @@
 
                 const accelerationX = event.accelerationIncludingGravity.x;
                 const accelerationY = event.accelerationIncludingGravity.y;
-                const accelerationZ = event.accelerationIncludingGravity.z;
 
-                // Adjust the circle's position based on motion sensor data
+                // Adjust the circle's position based on the direction of tilt
                 const circleLeft = window.innerWidth / 2 - circle.offsetWidth / 2 + accelerationX * 10;
-                const circleTop = window.innerHeight / 2 - circle.offsetHeight / 2 + accelerationY * 10;
+                const circleTop = window.innerHeight / 2 - circle.offsetHeight / 2 - accelerationY * 10;
 
                 circle.style.left = `${circleLeft}px`;
                 circle.style.top = `${circleTop}px`;
-
-                // Display the X, Y, and Z data
-                const dataOutput = document.getElementById('data-output');
-                dataOutput.innerHTML = `X: ${accelerationX.toFixed(2)}<br>Y: ${accelerationY.toFixed(2)}<br>Z: ${accelerationZ.toFixed(2)}`;
             });
         }
     </script>
-
     
     <div class="container">
 
