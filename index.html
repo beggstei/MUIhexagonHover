@@ -24,9 +24,13 @@
 
 </head>
 <body>
-    
+    <div id="textContainer">
+        Text will change here.
+    </div>
     <div id="circle"></div>
     <script>
+        const textContainer = document.getElementById('textContainer');
+        let dynamicText = "Initial Text";
         if (typeof DeviceMotionEvent.requestPermission === 'function') {
             DeviceMotionEvent.requestPermission()
                 .then(permissionState => {
@@ -63,6 +67,8 @@
                 }else{
                     hexagon1.style.transform = `scale(${1})`
                 }
+                dynamicText = "New Text: " + accelerationX.toString;
+                textContainer.textContent = dynamicText;
             });
         }
     </script>
