@@ -53,13 +53,7 @@ body {
     transform: scale(1.6); /* Scale up by a factor of 1.2 */
 }
 
-.hexagonEven:hover svg polygon {
-    fill: #ff5733; /* Change fill color on hover */
-}
 
-.hexagonOdd:hover svg polygon {
-    fill: #ff5733; /* Change fill color on hover */
-}
 
 .orientierungsbutton {
     flex-direction: column;
