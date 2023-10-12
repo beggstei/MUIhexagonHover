@@ -7,6 +7,38 @@
     <title>Mobile User Interface</title>
 </head>
 <body>
+    <div id="acceleration-x">X-Acceleration: </div>
+    <div id="acceleration-y">Y-Acceleration: </div>
+    <div id="acceleration-z">Z-Acceleration: </div>
+
+    <script>
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+            // Some browsers require permission to access motion data.
+            DeviceMotionEvent.requestPermission()
+                .then(permissionState => {
+                    if (permissionState === 'granted') {
+                        startListeningToAccelerometer();
+                    } else {
+                        console.error('Permission denied.');
+                    }
+                })
+                .catch(console.error);
+        } else {
+            startListeningToAccelerometer();
+        }
+
+        function startListeningToAccelerometer() {
+            window.addEventListener('devicemotion', (event) => {
+                const accelerationX = event.acceleration.x;
+                const accelerationY = event.acceleration.y;
+                const accelerationZ = event.acceleration.z;
+
+                document.getElementById('acceleration-x').textContent = `X-Acceleration: ${accelerationX}`;
+                document.getElementById('acceleration-y').textContent = `Y-Acceleration: ${accelerationY}`;
+                document.getElementById('acceleration-z').textContent = `Z-Acceleration: ${accelerationZ}`;
+            });
+        }
+    </script>
     <div class="container">
 
         <div class="orientierungsbutton">
