@@ -5,40 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Mobile User Interface</title>
+    
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #circle {
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        #data-output {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+        }
+    </style>
+
 </head>
 <body>
-    <div id="acceleration-x">X-Acceleration: </div>
-    <div id="acceleration-y">Y-Acceleration: </div>
-    <div id="acceleration-z">Z-Acceleration: </div>
+    <div id="circle"></div>
+    <div id="data-output"></div>
 
     <script>
         if (typeof DeviceMotionEvent.requestPermission === 'function') {
-            // Some browsers require permission to access motion data.
             DeviceMotionEvent.requestPermission()
                 .then(permissionState => {
                     if (permissionState === 'granted') {
-                        startListeningToAccelerometer();
+                        startListeningToMotionSensor();
                     } else {
                         console.error('Permission denied.');
                     }
                 })
                 .catch(console.error);
         } else {
-            startListeningToAccelerometer();
+            startListeningToMotionSensor();
         }
 
-        function startListeningToAccelerometer() {
+        function startListeningToMotionSensor() {
             window.addEventListener('devicemotion', (event) => {
-                const accelerationX = event.acceleration.x;
-                const accelerationY = event.acceleration.y;
-                const accelerationZ = event.acceleration.z;
+                const circle = document.getElementById('circle');
 
-                document.getElementById('acceleration-x').textContent = `X-Acceleration: ${accelerationX}`;
-                document.getElementById('acceleration-y').textContent = `Y-Acceleration: ${accelerationY}`;
-                document.getElementById('acceleration-z').textContent = `Z-Acceleration: ${accelerationZ}`;
+                const accelerationX = event.accelerationIncludingGravity.x;
+                const accelerationY = event.accelerationIncludingGravity.y;
+                const accelerationZ = event.accelerationIncludingGravity.z;
+
+                // Adjust the circle's position based on motion sensor data
+                const circleLeft = window.innerWidth / 2 - circle.offsetWidth / 2 + accelerationX * 10;
+                const circleTop = window.innerHeight / 2 - circle.offsetHeight / 2 + accelerationY * 10;
+
+                circle.style.left = `${circleLeft}px`;
+                circle.style.top = `${circleTop}px`;
+
+                // Display the X, Y, and Z data
+                const dataOutput = document.getElementById('data-output');
+                dataOutput.innerHTML = `X: ${accelerationX.toFixed(2)}<br>Y: ${accelerationY.toFixed(2)}<br>Z: ${accelerationZ.toFixed(2)}`;
             });
         }
     </script>
+
+    
     <div class="container">
 
         <div class="orientierungsbutton">
@@ -47,6 +82,8 @@
                 <path d="M141.942 19.3618L141.942 19.3618L141.938 19.3733C141.872 19.5629 141.749 19.726 141.589 19.8408C141.428 19.9555 141.236 20.0165 141.041 20.0163H141.04H140.065C139.513 20.0163 139.065 20.464 139.065 21.0163V33.124C139.051 33.392 138.935 33.6431 138.743 33.826C138.548 34.0123 138.29 34.1132 138.024 34.1091L138.008 34.109H133.622C133.613 34.109 133.605 34.1091 133.597 34.1093C133.329 34.116 133.068 34.0163 132.87 33.8297C132.677 33.6466 132.56 33.3939 132.545 33.1241V28.2393C132.545 27.687 132.098 27.2393 131.545 27.2393H126.925C126.372 27.2393 125.925 27.687 125.925 28.2393V33.1241C125.91 33.3939 125.793 33.6465 125.6 33.8297C125.402 34.0163 125.141 34.116 124.873 34.1093C124.865 34.1091 124.857 34.109 124.848 34.109H120.462C120.453 34.109 120.445 34.1091 120.437 34.1093C120.169 34.116 119.908 34.0163 119.711 33.8297C119.517 33.6465 119.4 33.3939 119.385 33.1241V21.0163C119.385 20.464 118.938 20.0163 118.385 20.0163H117.411V20.0163L117.401 20.0164C117.205 20.0182 117.013 19.9586 116.852 19.8449C116.69 19.7312 116.566 19.5686 116.499 19.3791L115.556 19.7131L116.499 19.3791C116.432 19.1896 116.425 18.9834 116.479 18.7896C116.534 18.596 116.646 18.4255 116.8 18.301C116.801 18.3008 116.801 18.3007 116.801 18.3006L128.644 8.76238L128.644 8.76213C128.813 8.62629 129.021 8.55298 129.235 8.55298C129.449 8.55298 129.657 8.62629 129.826 8.76213L129.826 8.76238L141.661 18.2942C141.808 18.4197 141.915 18.5883 141.966 18.7781C142.018 18.9706 142.009 19.1746 141.942 19.3618Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
             </svg>
         </div>
+
+        
 
         <div class="hexagon-container">
             <div class="hexagon-row1">
