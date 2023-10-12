@@ -49,8 +49,8 @@
                 const accelerationY = event.accelerationIncludingGravity.y;
 
                 // Adjust the circle's position based on the direction of tilt
-                const circleLeft = window.innerWidth / 2 - circle.offsetWidth / 2 + accelerationX * 10;
-                const circleTop = window.innerHeight / 2 - circle.offsetHeight / 2 - accelerationY * 10;
+                const circleLeft = window.innerWidth / 2 - circle.offsetWidth / 2 + accelerationX * 100;
+                const circleTop = window.innerHeight / 2 - circle.offsetHeight / 2 - accelerationY * 100;
 
                 circle.style.left = `${circleLeft}px`;
                 circle.style.top = `${circleTop}px`;
