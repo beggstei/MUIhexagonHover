@@ -143,15 +143,19 @@
 
         fullscreenButton.addEventListener('click', () => {
             if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
+                document.documentElement.requestFullscreen().then(hideButtonOnFullscreen);
             } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
-                document.documentElement.mozRequestFullScreen();
+                document.documentElement.mozRequestFullScreen().then(hideButtonOnFullscreen);
             } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-                document.documentElement.webkitRequestFullscreen();
+                document.documentElement.webkitRequestFullscreen().then(hideButtonOnFullscreen);
             } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
-                document.documentElement.msRequestFullscreen();
+                document.documentElement.msRequestFullscreen().then(hideButtonOnFullscreen);
             }
         });
+
+        function hideButtonOnFullscreen() {
+            fullscreenButton.style.display = 'none';
+        }
     </script>
 </body>
 </html>
