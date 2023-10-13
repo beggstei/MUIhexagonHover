@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +24,7 @@
 
 </head>
 <body>
-    <div id="textContainer" style="color: rgb(115, 255, 0);">
+    <div id="textContainer" style="color: rgb(255, 0, 0);">
         Text will change here.
     </div>
     <div id="circle"></div>
@@ -63,7 +63,7 @@
                 }else{
                     hexagon1.style.transform = `scale(${1})`
                 }
-                dynamicText = "acc X: " + accelerationX.toString();
+                dynamicText = "acc Y: " + accelerationY.toString();
                 textContainer.textContent = dynamicText;
             });
         }
