@@ -24,10 +24,26 @@
 
 </head>
 <body>
-    <div id="textContainer" style="color: rgb(255, 0, 0);" position="fixed">
-        Text will change here.
-    </div>
-    <div id="circle"></div>
+    
+    <script>
+        function updateTime() {
+            const timeDisplay = document.getElementById('timeDisplay');
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const timeString = `${hours}:${minutes}`;
+            timeDisplay.textContent = timeString;
+        }
+
+        // Update the time every minute
+        setInterval(updateTime, 60000); // 60,000 milliseconds = 1 minute
+
+        // Initialize the time display
+        updateTime();
+    </script>
+
+    
+    
     <script>
         const textContainer = document.getElementById('textContainer');
         let dynamicText = "Initial Text";
